@@ -11,8 +11,6 @@
     <Folder Include="Images\" />
     <Folder Include="Fonts\" />
     <Folder Include="MVVM\Model\" />
-    <Folder Include="MVVM\View\" />
-    <Folder Include="MVVM\ViewModel\" />
   </ItemGroup>
 
 </Project>

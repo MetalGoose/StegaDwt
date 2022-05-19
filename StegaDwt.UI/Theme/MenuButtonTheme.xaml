@@ -1,7 +1,7 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
-    <Style BasedOn="{StaticResource{x:Type ToggleButton}}"
-           TargetType="{x:Type RadioButton}"
+    <Style TargetType="{x:Type RadioButton}"
+           BasedOn="{StaticResource {x:Type ToggleButton}}"
            x:Key="MenuButtonTheme">
         <Style.Setters>
             
@@ -14,7 +14,7 @@
 
                             <TextBlock Text="{TemplateBinding Property=Content}"
                                        VerticalAlignment="Center"
-                                       Margin="50 0 0 0"/>
+                                       Margin="50,0,0,0"/>
                         </Grid>
                     </ControlTemplate>
                 </Setter.Value>
@@ -26,7 +26,7 @@
         </Style.Setters>
         <Style.Triggers>
             <Trigger Property="IsChecked" Value="True">
-                <Setter Property="Background" Value="#22202f"/>
+                <Setter Property="Background" Value="#00e699"/>
             </Trigger>
         </Style.Triggers>
     </Style>
