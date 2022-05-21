@@ -8,16 +8,14 @@
         mc:Ignorable="d"
         Height="600" 
         Width="920"
-        WindowStyle="None"
-        ResizeMode="NoResize"
         Background="Transparent"
-        AllowsTransparency="True">
+        >
 
     <Window.DataContext>
         <viewModel:MainViewModel/>
     </Window.DataContext>
 
-    <Border Background="#272737">
+    <Border Background="#272737" >
         <Grid>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="200"></ColumnDefinition>
@@ -42,21 +40,24 @@
                              Height="50"
                              FontSize="14"
                              Style="{StaticResource MenuButtonTheme}"
-                             IsChecked="True"/>
+                             IsChecked="True"
+                             Command="{Binding EncodeViewCommand}"/>
                 <RadioButton Content="Decode"
                              Foreground="White"
                              Height="50"
                              FontSize="14"
-                             Style="{StaticResource MenuButtonTheme}"/>
+                             Style="{StaticResource MenuButtonTheme}"
+                             Command="{Binding DecodeViewCommand}"/>
                 <RadioButton Content="Settings"
                              Foreground="White"
                              Height="50"
                              FontSize="14"
-                             Style="{StaticResource MenuButtonTheme}"/>
+                             Style="{StaticResource MenuButtonTheme}"
+                             Command="{Binding SettingsViewCommand}"/>
             </StackPanel>
 
-            <ContentControl Grid.Row="1"
-                            Grid.Column="1"
+            <ContentControl Grid.Column="1"
+                            Grid.RowSpan="2"
                             Content="{Binding CurrentView}"/>
 
         </Grid>
