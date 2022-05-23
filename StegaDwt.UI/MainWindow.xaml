@@ -7,7 +7,8 @@
         xmlns:viewModel="clr-namespace:StegaDwt.UI.MVVM.ViewModel"
         mc:Ignorable="d"
         Height="600" 
-        Width="920"
+        Width="1080"
+        WindowState="Maximized"
         Background="Transparent"
         >
 
@@ -15,7 +16,7 @@
         <viewModel:MainViewModel/>
     </Window.DataContext>
 
-    <Border Background="#272737" >
+    <Border Background="#171727">
         <Grid>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="200"></ColumnDefinition>
@@ -27,13 +28,17 @@
                 <RowDefinition></RowDefinition>
             </Grid.RowDefinitions>
 
-            <TextBlock Text="MsgEncoder" 
+
+
+            <StackPanel Grid.RowSpan="2" Background="#272737" >
+
+                <Border Height="50">
+                    <TextBlock Text="MsgEncoder" 
                        Foreground="White"
                        VerticalAlignment="Center"
                        HorizontalAlignment="Center"
                        FontSize="22"/>
-
-            <StackPanel Grid.Row="1">
+                </Border>
 
                 <RadioButton Content="Encode"
                              Foreground="White"
@@ -58,8 +63,9 @@
 
             <ContentControl Grid.Column="1"
                             Grid.RowSpan="2"
+                            Margin="20"
                             Content="{Binding CurrentView}"/>
-
+           
         </Grid>
     </Border>
 </Window>

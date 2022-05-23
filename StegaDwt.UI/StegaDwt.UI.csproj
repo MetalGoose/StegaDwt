@@ -13,4 +13,10 @@
     <Folder Include="MVVM\Model\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <PackageReference Include="NAudio" Version="2.1.0" />
+    <PackageReference Include="ScottPlot" Version="4.1.45" />
+    <PackageReference Include="ScottPlot.WPF" Version="4.1.45" />
+  </ItemGroup>
+
 </Project>
