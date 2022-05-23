@@ -1,4 +1,5 @@
 ﻿using Microsoft.Win32;
+using StegaDwt.DWT;
 using StegaDwt.UI.Core;
 
 namespace StegaDwt.UI.MVVM.ViewModel

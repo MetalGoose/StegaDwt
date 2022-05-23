@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace StegaDwt.UI
+namespace StegaDwt.DWT
 {
     public class WavFile
     {
@@ -55,9 +55,12 @@ namespace StegaDwt.UI
             }
         }
 
-        public void WriteWavFile(string fileName)
+        public void WriteWavFile(string outputFilePath)
         {
-            throw new NotImplementedException();
+            using (var writer = new WaveFileWriter(outputFilePath, new WaveFormat(_sampleRate, _bytesPerSample * 8, _channels)))
+            {
+                writer.WriteSamples(FloatAudioBuffer, 0, FloatAudioBuffer.Length);
+            };
         }
 
         private TimeSpan DeterminateDurationTrack(int channels, int sampleRate)

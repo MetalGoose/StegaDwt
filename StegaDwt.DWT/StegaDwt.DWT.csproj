@@ -1,0 +1,16 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0-windows</TargetFramework>
+    <Nullable>enable</Nullable>
+    <UseWPF>true</UseWPF>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="CenterSpace.NMath.Standard.Windows.X64" Version="7.4.0.12" />
+    <PackageReference Include="NAudio" Version="2.1.0" />
+    <PackageReference Include="NAudio.WaveFormRenderer" Version="2.0.0" />
+    <PackageReference Include="ZXing.Net" Version="0.16.8" />
+  </ItemGroup>
+
+</Project>
