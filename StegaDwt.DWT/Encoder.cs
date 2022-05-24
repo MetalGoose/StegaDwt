@@ -79,12 +79,9 @@ namespace StegaDwt.DWT
             };
         }
 
-        public string DecodeMsg(float[] samples)
+        public string DecodeMsg()
         {
-            // Change to _origWavSamples
-            var dataWithMessage = samples;
-
-            if (dataWithMessage is null || dataWithMessage.Length == 0)
+            if (_originFilBuffer is null || _originFilBuffer.Length == 0)
             {
                 throw new ArgumentException("Incorrect data");
             }
@@ -92,7 +89,7 @@ namespace StegaDwt.DWT
             // Choose wavelet
             var wavelet = new FloatWavelet(_waveletType);
             // Build DWT object
-            var dwt = new FloatDWT(dataWithMessage, wavelet);
+            var dwt = new FloatDWT(_originFilBuffer, wavelet);
             // Decompose signal with DWT
             dwt.Decompose(_decomposeLevel);
 

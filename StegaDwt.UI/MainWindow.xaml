@@ -53,12 +53,6 @@
                              FontSize="14"
                              Style="{StaticResource MenuButtonTheme}"
                              Command="{Binding DecodeViewCommand}"/>
-                <RadioButton Content="Settings"
-                             Foreground="White"
-                             Height="50"
-                             FontSize="14"
-                             Style="{StaticResource MenuButtonTheme}"
-                             Command="{Binding SettingsViewCommand}"/>
             </StackPanel>
 
             <ContentControl Grid.Column="1"

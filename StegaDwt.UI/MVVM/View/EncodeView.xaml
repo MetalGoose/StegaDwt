@@ -185,6 +185,14 @@
                             FontWeight="Bold"
                             FontSize="14"/>
 
+                        <TextBlock
+                            Foreground="Green"
+                            FontWeight="Bold"
+                            FontSize="14"
+                            Name="PSNRTextBlock"
+                            Margin="10,0,0,0"
+                            VerticalAlignment="Center"/>
+
                     </StackPanel>
 
                     <Rectangle 

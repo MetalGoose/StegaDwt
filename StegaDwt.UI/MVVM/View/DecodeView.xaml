@@ -6,7 +6,172 @@
              xmlns:local="clr-namespace:StegaDwt.UI.MVVM.View"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
-    <StackPanel Background="#171727">
-        <TextBlock Text="Decode" Foreground="White"/>
-    </StackPanel>
+    <Border>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="300"></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+
+            <Grid.RowDefinitions>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+            </Grid.RowDefinitions>
+
+            <Border Grid.ColumnSpan="2">
+                <Grid>
+
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+
+                    <StackPanel 
+                        Orientation="Horizontal"
+                        HorizontalAlignment="Left"
+                        FlowDirection="LeftToRight">
+
+                        <TextBlock
+                            Margin="0,0,10,0"
+                            Text="Wav с сообщением"
+                            FontSize="12"
+                            Foreground="White"
+                            VerticalAlignment="Center"/>
+                        <TextBox
+                            Margin="0,0,10,0"
+                            TextWrapping="Wrap"
+                            Name="WavFileNameTextBox"
+                            Width="200"
+                            Height="20"/>
+                        <Button 
+                            Content="..." 
+                            Height="20" 
+                            Width="20"
+                            Click="SelectWavFile"/>
+
+                    </StackPanel>
+                    <StackPanel
+                        Grid.Row="1"
+                        Orientation="Horizontal"
+                        HorizontalAlignment="Left"
+                        FlowDirection="LeftToRight">
+
+                        <TextBlock
+                            Margin="0,0,50,0"
+                            Text="Файл ключа"
+                            FontSize="12"
+                            Foreground="White"
+                            VerticalAlignment="Center"/>
+                        <TextBox
+                            Margin="0,0,10,0"
+                            TextWrapping="Wrap"
+                            Name="KeyFileNameTextBox"
+                            Width="200"
+                            Height="20"/>
+                        <Button 
+                            Content="..." 
+                            Height="20" 
+                            Width="20"
+                            Click="SelectKeyFile"/>
+
+                    </StackPanel>
+
+                    <StackPanel
+                        Grid.Column="1"
+                        Orientation="Horizontal"
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Top"
+                        FlowDirection="LeftToRight">
+
+                        <TextBlock
+                            Margin="10,0,10,0"
+                            Text="Уровень декомпозиции"
+                            FontSize="12"
+                            Foreground="White"
+                            VerticalAlignment="Center"/>
+                        <TextBox
+                            Margin="0,0,10,0"
+                            TextWrapping="Wrap"
+                            Name="DecompLvlTextBox"
+                            Width="50"
+                            Height="20"/>
+                        <TextBlock
+                            Margin="10,0,10,0"
+                            Text="Вейвлет"
+                            FontSize="12"
+                            Foreground="White"
+                            VerticalAlignment="Center"/>
+                        <ComboBox
+                            Name="WaveletTypeComboBox"
+                            Width="120"/>
+
+                    </StackPanel>
+                    <StackPanel
+                        Grid.Column="1"
+                        Grid.Row="1"
+                        Orientation="Horizontal"
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Top"
+                        FlowDirection="LeftToRight">
+
+                        <TextBlock
+                            Margin="10,0,10,0"
+                            Text="Сообщение"
+                            FontSize="12"
+                            Foreground="White"
+                            VerticalAlignment="Center"/>
+                        <TextBox
+                            Margin="0,0,10,0"
+                            TextWrapping="Wrap"
+                            Name="MessageTextBox"
+                            Width="200"
+                            Height="20"
+                            IsReadOnly="True"/>
+                        <Button
+                            Width="100"
+                            Height="20"
+                            Content="Расшифровать"
+                            Name="DecodeButton"
+                            Click="DecodeMessage"
+                        />
+
+                    </StackPanel>
+                    <StackPanel
+                        Grid.Column="1"
+                        Grid.Row="2"
+                        Orientation="Horizontal"
+                        HorizontalAlignment="Left"
+                        FlowDirection="LeftToRight">
+
+                        <TextBlock 
+                            Name="ErrorTextBlock"
+                            Foreground="Red"
+                            Margin="10,0,0,0"
+                            VerticalAlignment="Center"
+                            FontWeight="Bold"
+                            FontSize="14"/>
+
+                    </StackPanel>
+
+                    <Rectangle 
+                        HorizontalAlignment="Stretch" 
+                        Fill="#00e699"
+                        Height="2"
+                        Grid.Row="3"
+                        Grid.ColumnSpan="2"/>
+
+                </Grid>
+            </Border>
+        </Grid>
+    </Border>
 </UserControl>

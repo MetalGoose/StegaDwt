@@ -52,19 +52,7 @@ namespace StegaDwt.UI.MVVM.View
                 string filename = dialog.FileName;
                 _currentFilePath = filename;
 
-                _wavData = new WavFile(filename);
-
                 WavFileNameTextBox.Text = filename;
-
-                OriginWavPlot.Plot.Clear();
-
-                OriginWavPlot.Plot.AddSignal(
-                    _wavData.FloatAudioBuffer.Select(x => (double)x).ToArray(),
-                    _wavData.SampleRate
-                );
-
-                OriginWavPlot.Plot.AxisAuto(0);
-                OriginWavPlot.Render();
             }
             catch
             {
@@ -152,6 +140,8 @@ namespace StegaDwt.UI.MVVM.View
                 return;
             }
 
+            _wavData = new WavFile(_currentFilePath);
+
             var selectedWavelet = WaveletTypeComboBox.SelectedItem;
 
             if (selectedWavelet is null)
@@ -160,8 +150,7 @@ namespace StegaDwt.UI.MVVM.View
                 return;
             }
 
-            var wavFile = new WavFile(_currentFilePath);
-            var encoder = new Encoder(wavFile, _currentKeyPath, decompLvl, (Wavelets)selectedWavelet);
+            var encoder = new Encoder(_wavData, _currentKeyPath, decompLvl, (Wavelets)selectedWavelet);
             DwtTransformInfo encodingResultInfo;
 
             try
@@ -174,33 +163,13 @@ namespace StegaDwt.UI.MVVM.View
                 return;
             }
 
+            PlotEncodeResults(encodingResultInfo);
+
+            var psnr = CalculatePSNR(_wavData.FloatAudioBuffer, encodingResultInfo.ResultSamples);
+
+            PSNRTextBlock.Text = $"PSNR: {psnr}";
+
             _wavData.FloatAudioBuffer = encodingResultInfo.ResultSamples;
-
-            EncodedWavPlot.Plot.Clear();
-            DetailsWavPlot.Plot.Clear();
-            ApproxWavPlot.Plot.Clear();
-
-            EncodedWavPlot.Plot.AddSignal(
-                _wavData.FloatAudioBuffer.Select(x => (double)x).ToArray(),
-                _wavData.SampleRate
-            );
-            DetailsWavPlot.Plot.AddSignal(
-                encodingResultInfo.Details.Select(x => (double)x).ToArray(),
-                _wavData.SampleRate
-            );
-            ApproxWavPlot.Plot.AddSignal(
-                encodingResultInfo.Approx.Select(x => (double)x).ToArray(),
-                _wavData.SampleRate
-            );
-
-            EncodedWavPlot.Plot.AxisAuto(0);
-            DetailsWavPlot.Plot.AxisAuto(0);
-            ApproxWavPlot.Plot.AxisAuto(0);
-
-            EncodedWavPlot.Render();
-            DetailsWavPlot.Render();
-            ApproxWavPlot.Render();
-
             _wavData.WriteWavFile(_outputFilePath);
 
             ErrorTextBlock.Foreground = Brushes.Green;
@@ -236,6 +205,45 @@ namespace StegaDwt.UI.MVVM.View
             ApproxWavPlot.Plot.YLabel("Audio Value");
         }
 
+        private void PlotEncodeResults(DwtTransformInfo encodingResultInfo)
+        {
+            EncodedWavPlot.Plot.Clear();
+            DetailsWavPlot.Plot.Clear();
+            ApproxWavPlot.Plot.Clear();
+            OriginWavPlot.Plot.Clear();
+
+            OriginWavPlot.Plot.AddSignal(
+                _wavData.FloatAudioBuffer.Select(x => (double)x).ToArray(),
+                _wavData.SampleRate
+            );
+            EncodedWavPlot.Plot.AddSignal(
+                encodingResultInfo.ResultSamples.Select(x => (double)x).ToArray(),
+                _wavData.SampleRate
+            );
+            EncodedWavPlot.Plot.AddSignal(
+                _wavData.FloatAudioBuffer.Select(x => (double)x).ToArray(),
+                _wavData.SampleRate
+            );
+            DetailsWavPlot.Plot.AddSignal(
+                encodingResultInfo.Details.Select(x => (double)x).ToArray(),
+                _wavData.SampleRate
+            );
+            ApproxWavPlot.Plot.AddSignal(
+                encodingResultInfo.Approx.Select(x => (double)x).ToArray(),
+                _wavData.SampleRate
+            );
+
+            OriginWavPlot.Plot.AxisAuto(0);
+            EncodedWavPlot.Plot.AxisAuto(0);
+            DetailsWavPlot.Plot.AxisAuto(0);
+            ApproxWavPlot.Plot.AxisAuto(0);
+
+            OriginWavPlot.Render();
+            EncodedWavPlot.Render();
+            DetailsWavPlot.Render();
+            ApproxWavPlot.Render();
+        }
+
         private void AddWaveletTypes()
         {
             var wavelets = Enum.GetValues(typeof(Wavelets))
@@ -249,6 +257,30 @@ namespace StegaDwt.UI.MVVM.View
                     WaveletTypeComboBox.Items.Add(item);
                 }
             }
+        }
+
+        private double CalculatePSNR(float[] input, float[] embedded)
+        {
+            if (input.Length != embedded.Length)
+            {
+                return 0;
+            }
+
+            var maxAmplitude = Math.Pow(2, (_wavData.BytesPerSample * 8) - 1);
+            var tempArray = new double[input.Length];
+
+            for (int i = 0; i < tempArray.Length; i++)
+            {
+                tempArray[i] = Math.Pow(input[i] - embedded[i], 2);
+            }
+
+            var mse = tempArray.Average();
+
+            if (mse == 0) return 100.0;
+
+            var psnr = 10 * Math.Log10(maxAmplitude / Math.Sqrt(mse));
+
+            return Math.Round(psnr, 2);
         }
     }
 }
