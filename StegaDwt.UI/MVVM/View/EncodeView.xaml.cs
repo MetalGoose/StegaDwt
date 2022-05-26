@@ -278,7 +278,7 @@ namespace StegaDwt.UI.MVVM.View
 
             if (mse == 0) return 100.0;
 
-            var psnr = 10 * Math.Log10(maxAmplitude / Math.Sqrt(mse));
+            var psnr = 10 * Math.Log10(maxAmplitude / mse);
 
             return Math.Round(psnr, 2);
         }
